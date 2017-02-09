@@ -1,4 +1,4 @@
-package model;
+package hyx.model;
 
 public class NameModel {
 	private String name;

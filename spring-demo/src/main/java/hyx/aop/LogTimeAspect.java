@@ -1,4 +1,4 @@
-package aop;
+package hyx.aop;
 
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 @Aspect
 public class LogTimeAspect  {
 	
-	@Pointcut("@annotation(aop.annotation.LogTime)")
+	@Pointcut("@annotation(hyx.aop.annotation.LogTime)")
 	private void perfmonAspect(){
 		//nothing need to do ,just a signature
 	}

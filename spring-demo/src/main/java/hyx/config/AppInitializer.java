@@ -1,4 +1,4 @@
-package config;
+package hyx.config;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 

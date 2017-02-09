@@ -1,13 +1,12 @@
-package aop;
+package hyx.aop;
 
-import model.NameModel;
+import hyx.aop.annotation.LogTime;
+import hyx.model.NameModel;
 
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
-
-import aop.annotation.LogTime;
 
 /**
  * @author hyx 
@@ -34,7 +33,7 @@ public class AllMethodAspect {
 	
 	@Pointcut("commonMethod()&&args(param)")
 	private void methodPointcut(NameModel param) {
-		// 该signature 的参数的类型会作为条件来筛选被adviced的方法，且要与args里的名字一致
+		// 该signature 的参数的类型会作为条件来筛选被adviced的方法，且要与expression 里的args里的名字一致
 	}
 	
 	@Pointcut("commonMethod()&&@annotation(anno)")

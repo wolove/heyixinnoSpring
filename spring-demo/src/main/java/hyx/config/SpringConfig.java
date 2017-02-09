@@ -1,4 +1,6 @@
-package config;
+package hyx.config;
+
+import hyx.util.BeanObjectMapper;
 
 import java.nio.charset.Charset;
 import java.util.ArrayList;
@@ -19,14 +21,12 @@ import org.springframework.util.ClassUtils;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-import util.BeanObjectMapper;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Configuration
 @EnableWebMvc
 @EnableAspectJAutoProxy
-@ComponentScan(basePackages = { "controller","aop"})
+@ComponentScan(basePackages = { "hyx.controller","hyx.aop"})
 public class SpringConfig extends WebMvcConfigurerAdapter {
 
 	private static final boolean jackson2Present = ClassUtils.isPresent("com.fasterxml.jackson.databind.ObjectMapper", SpringConfig.class.getClassLoader())
