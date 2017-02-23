@@ -9,6 +9,7 @@ import java.util.List;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.ByteArrayHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -26,7 +27,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Configuration
 @EnableWebMvc
 @EnableAspectJAutoProxy
-@ComponentScan(basePackages = { "hyx.controller","hyx.aop"})
+@ComponentScan(basePackages = { "hyx.controller", "hyx.aop" ,"hyx.rabbitmq"})
+@Import(value = { RabbitmqConfig.class })
 public class SpringConfig extends WebMvcConfigurerAdapter {
 
 	private static final boolean jackson2Present = ClassUtils.isPresent("com.fasterxml.jackson.databind.ObjectMapper", SpringConfig.class.getClassLoader())
@@ -44,12 +46,12 @@ public class SpringConfig extends WebMvcConfigurerAdapter {
 		converters.add(new ResourceHttpMessageConverter());
 		converters.add(new SourceHttpMessageConverter());
 		converters.add(new AllEncompassingFormHttpMessageConverter());
-		
-		//object to json mapper
+
+		// object to json mapper
 		if (jackson2Present) {
 			MappingJackson2HttpMessageConverter convert = new MappingJackson2HttpMessageConverter();
 			convert.setObjectMapper(BeanObjectMapper.getMapper());
-			ArrayList<MediaType> supportedMediaTypes =new ArrayList<MediaType>();
+			ArrayList<MediaType> supportedMediaTypes = new ArrayList<MediaType>();
 			supportedMediaTypes.add(MediaType.APPLICATION_JSON);
 			convert.setSupportedMediaTypes(supportedMediaTypes);
 			converters.add(convert);
