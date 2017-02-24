@@ -27,7 +27,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Configuration
 @EnableWebMvc
 @EnableAspectJAutoProxy
-@ComponentScan(basePackages = { "hyx.controller", "hyx.aop" ,"hyx.rabbitmq"})
+@ComponentScan(basePackages = { "hyx.controller", "hyx.aop" ,"hyx.util"})
 @Import(value = { RabbitmqConfig.class })
 public class SpringConfig extends WebMvcConfigurerAdapter {
 

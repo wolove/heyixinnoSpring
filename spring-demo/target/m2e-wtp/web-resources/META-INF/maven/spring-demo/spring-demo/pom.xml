@@ -70,6 +70,19 @@
 			<version>1.7.5</version>
 		</dependency>
 
+		<!-- rabbit MQ -->
+		<dependency>
+			<groupId>com.rabbitmq</groupId>
+			<artifactId>amqp-client</artifactId>
+			<version>3.6.5</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.integration</groupId>
+			<artifactId>spring-integration-amqp</artifactId>
+			<version>4.3.5.RELEASE</version>
+		</dependency>
+
+
 		<!-- commons -->
 		<dependency>
 			<groupId>commons-lang</groupId>
@@ -118,7 +131,7 @@
 
 		<!--aop,aspect -->
 		<dependency>
-			<groupId>org.aspectj</groupId> 
+			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjrt</artifactId>
 			<version>1.8.9</version>
 		</dependency>

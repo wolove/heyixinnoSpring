@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HelloController {
 
-	@RequestMapping(path = "/hello", method = RequestMethod.GET)
+	@RequestMapping(value = "/hello", method = RequestMethod.GET)
 	public NameModel hello() {
 		return new NameModel("greetings");
 	}
 
-	@RequestMapping(path = "/bigdecimal", method = RequestMethod.GET)
+	@RequestMapping(value = "/bigdecimal", method = RequestMethod.GET)
 	@LogTime(description = "logTimeAspectAnno")
 	public String bigd() {
 		System.out.println("sdssssds" + System.currentTimeMillis());
@@ -26,19 +26,20 @@ public class HelloController {
 		return String.valueOf(System.currentTimeMillis());
 	}
 
-	@RequestMapping(path = "/throw", method = RequestMethod.GET)
+	@RequestMapping(value = "/throw", method = RequestMethod.GET)
 	@LogTime
 	public String throwE() {
 		throw new RuntimeException("something w" + System.currentTimeMillis());
 	}
 
-	@RequestMapping(path = "/string", method = RequestMethod.POST)
+	@RequestMapping(value = "/string", method = RequestMethod.POST)
 	public String getMessage(@RequestBody NameModel name) {
 		return name.getName();
 	}
 
-	@RequestMapping(path = "/string", method = RequestMethod.GET)
+	@RequestMapping(value = "/string", method = RequestMethod.GET)
 	public String getString(@RequestParam String name) {
 		return name;
 	}
+	
 }
