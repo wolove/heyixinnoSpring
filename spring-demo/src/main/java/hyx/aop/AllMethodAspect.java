@@ -11,19 +11,19 @@ import org.springframework.stereotype.Component;
 /**
  * @author hyx 
  * 	execution(modifiers-pattern? ret-type-pattern  declaring-type-pattern?name-pattern(param-pattern) throws-pattern?)
- *  ½ØÈ¡×Ôspring¹ÙÍøÎÄµµ¡£
+ *  æˆªå–è‡ªspringå®˜ç½‘æ–‡æ¡£ã€‚
  */
 @Component
 @Aspect
 public class AllMethodAspect {
 
 	/**
-	 * ÏÂ·½µÚÒ»¸ö*±íÊ¾·µ»ØÖµ£¬¸Ã±í´ïÊ½±íÊ¾controller°ü¼°Æä×Ó°üÏÂËùÓĞµÄ·½·¨£¨ÓĞÒ»¸ö²ÎÊıparam) 
-	 * ºóÃæµÄargsÁ½¸ö×÷ÓÃ£º
-	 * 1.±íÊ¾Âú×ãÌõ¼şµÄmethod°üº¬Ò»¸ö²ÎÊı 
-	 * 2.ÓÃÓÚ´«µİÕâ¸ö²ÎÊı¸øadvice
+	 * ä¸‹æ–¹ç¬¬ä¸€ä¸ª*è¡¨ç¤ºè¿”å›å€¼ï¼Œè¯¥è¡¨è¾¾å¼è¡¨ç¤ºcontrolleråŒ…åŠå…¶å­åŒ…ä¸‹æ‰€æœ‰çš„æ–¹æ³•ï¼ˆæœ‰ä¸€ä¸ªå‚æ•°param) 
+	 * åé¢çš„argsä¸¤ä¸ªä½œç”¨ï¼š
+	 * 1.è¡¨ç¤ºæ»¡è¶³æ¡ä»¶çš„methodåŒ…å«ä¸€ä¸ªå‚æ•° 
+	 * 2.ç”¨äºä¼ é€’è¿™ä¸ªå‚æ•°ç»™advice
 	 * 
-	 * argsÀïµÄ²ÎÊıÃû×ÖÓëºóÃæµÄadvice·½·¨ÀïµÄ²ÎÊıÃû×ÖÒªÑÏ¸ñÍ³Ò»£¬·ñÔò»á±¨´í£¬µ«ÊÇ²»ÒªÇóºÍ±»adviced·½·¨µÄ²ÎÊıÃûÒ»ÖÂ
+	 * argsé‡Œçš„å‚æ•°åå­—ä¸åé¢çš„adviceæ–¹æ³•é‡Œçš„å‚æ•°åå­—è¦ä¸¥æ ¼ç»Ÿä¸€ï¼Œå¦åˆ™ä¼šæŠ¥é”™ï¼Œä½†æ˜¯ä¸è¦æ±‚å’Œè¢«advicedæ–¹æ³•çš„å‚æ•°åä¸€è‡´
 	 */
 	
 	@Pointcut("execution(* controller..*.*(..))")
@@ -33,12 +33,12 @@ public class AllMethodAspect {
 	
 	@Pointcut("commonMethod()&&args(param)")
 	private void methodPointcut(NameModel param) {
-		// ¸Ãsignature µÄ²ÎÊıµÄÀàĞÍ»á×÷ÎªÌõ¼şÀ´É¸Ñ¡±»advicedµÄ·½·¨£¬ÇÒÒªÓëexpression ÀïµÄargsÀïµÄÃû×ÖÒ»ÖÂ
+		// è¯¥signature çš„å‚æ•°çš„ç±»å‹ä¼šä½œä¸ºæ¡ä»¶æ¥ç­›é€‰è¢«advicedçš„æ–¹æ³•ï¼Œä¸”è¦ä¸expression é‡Œçš„argsé‡Œçš„åå­—ä¸€è‡´
 	}
 	
 	@Pointcut("commonMethod()&&@annotation(anno)")
 	private void annoParamTransport(LogTime anno){
-		//´«·½·¨ÉÏµÄ×¢½âÊôĞÔ
+		//ä¼ æ–¹æ³•ä¸Šçš„æ³¨è§£å±æ€§
 	}
 	
 	@Before("annoParamTransport(anno)")

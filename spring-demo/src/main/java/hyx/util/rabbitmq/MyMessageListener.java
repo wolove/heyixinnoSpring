@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * @author hyx
- * @description 消息驱动的amqp pojo,对接收到的消息进行处理
+ * @description message-driven amqp pojo,need to be contaied by listener-container
  */
 @Component
 public class MyMessageListener implements MessageListener {

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * @author hyx
- *Õâ¸öÀà¼òµ¥Õ¹Ê¾ÁË¼¸ÖÖadviceµÄÔöÇ¿·½·¨µÄÊ¹ÓÃ£¬pointcutÊ¹ÓÃ×¢½â·½Ê½
+ *ä¸ªç±»ç®€å•å±•ç¤ºäº†å‡ ç§adviceçš„å¢å¼ºæ–¹æ³•çš„ä½¿ç”¨ï¼Œpointcutä½¿ç”¨æ³¨è§£æ–¹å¼
  */
 @Component
 @Aspect
@@ -44,20 +44,19 @@ public class LogTimeAspect  {
 	
 	
 	/**
-	 * @param pjp Õâ¸ö²ÎÊıÊÇÊ¹ÓÃaround±ØĞëÒªÓĞµÄ£¬Ê¹ÓÃËüÀ´Ö´ĞĞÄ¿±ê·½·¨
-	 * ÌØ±ğ×¢Òâ£¬ÔÚÊ¹ÓÃÁËafter returning ºó£¬ÔÙÊ¹ÓÃaround»áµ¼ÖÂresult´«ÖµÊ§°Ü£¬ËùÒÔ×îºÃÓÃ×îºÏÊÊµÄadvice£¬²»ÒªÃ¤Ä¿ÓÃaround,¿ÉÄÜ»áÓĞ²»¿ÉÔ¤²âµÄbug
+	 * @param pjp è¿™ä¸ªå‚æ•°æ˜¯ä½¿ç”¨aroundå¿…é¡»è¦æœ‰çš„ï¼Œä½¿ç”¨å®ƒæ¥æ‰§è¡Œç›®æ ‡æ–¹æ³•
+	 * ç‰¹åˆ«æ³¨æ„ï¼Œåœ¨ä½¿ç”¨äº†after returning åï¼Œå†ä½¿ç”¨aroundä¼šå¯¼è‡´resultä¼ å€¼å¤±è´¥ï¼Œæ‰€ä»¥æœ€å¥½ç”¨æœ€åˆé€‚çš„adviceï¼Œä¸è¦ç›²ç›®ç”¨around,å¯èƒ½ä¼šæœ‰ä¸å¯é¢„æµ‹çš„bug
 	 * 
 	 */
 //	@Around(value="perfmonAspect()")
 	
 //	public void aroundAdvice(ProceedingJoinPoint pjp){
-//		 //·½·¨Ö´ĞĞÇ°
+//		 //æ–¹æ³•æ‰§è¡Œå‰
 //		try {
 //			pjp.proceed();
 //		} catch (Throwable e) {
 //			e.printStackTrace();
 //		}
-//		//·½·¨Ö´ĞĞºó
+//		//æ–¹æ³•æ‰§è¡Œå
 //	}
-	
 }

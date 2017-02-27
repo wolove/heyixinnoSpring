@@ -35,7 +35,7 @@ public class SpringConfig extends WebMvcConfigurerAdapter {
 			&& ClassUtils.isPresent("com.fasterxml.jackson.core.JsonGenerator", SpringConfig.class.getClassLoader());
 
 	/**
-	 * in order to support json-formated message that returned by controller
+	 * in order to support json-formated message which returned by controller
 	 */
 	@Override
 	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
