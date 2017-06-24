@@ -6,10 +6,14 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.ByteArrayHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -28,14 +32,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @EnableWebMvc
 @EnableAspectJAutoProxy
 @ComponentScan(basePackages = { "hyx.controller", "hyx.aop" ,"hyx.util"})
-@Import(value = { RabbitmqConfig.class })
+@Import(value = { RabbitmqConfig.class,MySqlConfig.class })
 public class SpringConfig extends WebMvcConfigurerAdapter {
 
 	private static final boolean jackson2Present = ClassUtils.isPresent("com.fasterxml.jackson.databind.ObjectMapper", SpringConfig.class.getClassLoader())
 			&& ClassUtils.isPresent("com.fasterxml.jackson.core.JsonGenerator", SpringConfig.class.getClassLoader());
 
 	/**
-	 * in order to support json-formated message which returned by controller
+	 * in order to support json-formatted message which returned by controller
 	 */
 	@Override
 	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
@@ -57,4 +61,10 @@ public class SpringConfig extends WebMvcConfigurerAdapter {
 			converters.add(convert);
 		}
 	}
+
+	@Bean
+	public static PropertySourcesPlaceholderConfigurer getPropertyPlaceholderConfigurer() {
+		return new PropertySourcesPlaceholderConfigurer();
+	}
+
 }

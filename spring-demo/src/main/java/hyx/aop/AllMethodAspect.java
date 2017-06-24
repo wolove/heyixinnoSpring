@@ -19,7 +19,7 @@ public class AllMethodAspect {
 
 	/**
 	 * 下方第一个*表示返回值，该表达式表示controller包及其子包下所有的方法（有一个参数param) 
-	 * 后面的args两个作用：
+	 * Pointcut表达式里的args两个作用：
 	 * 1.表示满足条件的method包含一个参数 
 	 * 2.用于传递这个参数给advice
 	 * 

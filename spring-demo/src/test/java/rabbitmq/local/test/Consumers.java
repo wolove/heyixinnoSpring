@@ -11,25 +11,25 @@ import com.rabbitmq.client.DefaultConsumer;
 
 /**
  * @author hyx
- * @description ½ÓÊÕÌØ¶¨routingkeyµÄÏû·ÑÕß£¬Ô­Éúrabbitmq´úÂëÊµÏÖ
+ * @description æ¥æ”¶ç‰¹å®šroutingkeyçš„æ¶ˆè´¹è€…ï¼ŒåŸç”Ÿrabbitmqä»£ç å®ç°
  */
 public class Consumers {
 	public static void main(String[] args) throws IOException, TimeoutException {
-		// ÅäÖÃÁ¬½Ó
+		// é…ç½®è¿æ¥
 		ConnectionFactory factory = new ConnectionFactory();
 		factory.setHost("localhost");
 		Connection conn = factory.newConnection();
 		Channel channel = conn.createChannel();
 
-		// ÉùÃ÷exchange
+		// å£°æ˜exchange
 		String exchangeName = "x";
 		String exchangeType = "direct";
 		channel.exchangeDeclare(exchangeName, exchangeType);
-		// ÉùÃ÷queue(Ãû×ÖÓÉserverÀ´Æğ)
+		// å£°æ˜queue(åå­—ç”±serveræ¥èµ·)
 		String queueName = channel.queueDeclare().getQueue();
 		channel.queueBind(queueName, exchangeName, "routekey");
 
-		// consumerÒ»´ÎÖ»´¦ÀíÒ»¸öÏûÏ¢
+		// consumerä¸€æ¬¡åªå¤„ç†ä¸€ä¸ªæ¶ˆæ¯
 		channel.basicQos(1);
 
 		Consumer consumer = new DefaultConsumer(channel) {

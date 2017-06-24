@@ -9,26 +9,26 @@ import com.rabbitmq.client.ConnectionFactory;
 
 /**
  * @author hyx
- * @Require ĞèÒªÊÂÏÈ°²×°rabbitmq Server
+ * @Require éœ€è¦äº‹å…ˆå®‰è£…rabbitmq Server
  */
 public class Publisher {
 	public static void main(String[] args) throws IOException, TimeoutException {
 		ConnectionFactory factory = new ConnectionFactory();
 		factory.setHost("localhost");
-		//ÏòÔ¶³Ì½øĞĞÏûÏ¢·¢ËÍ
+		//å‘è¿œç¨‹è¿›è¡Œæ¶ˆæ¯å‘é€
 		// factory.setPort(5672);
 		// factory.setHost("192.168.253.118");
 		// factory.setUsername("hyx");
 		// factory.setPassword("123456");
 		Connection conn = factory.newConnection();
 		Channel channel = conn.createChannel();
-		String mesg = "¸ãÊÂÇé";
-		/** Ê¹ÓÃexchange routekey ¶ÔÏûÏ¢½øĞĞ·¢ËÍ */
+		String mesg = "æäº‹æƒ…";
+		/** ä½¿ç”¨exchange routekey å¯¹æ¶ˆæ¯è¿›è¡Œå‘é€ */
 		// channel.exchangeDeclare("x", "direct");
 		// channel.basicPublish("x", "routekey", null, mesg.getBytes());
 
-		// Ö±½ÓÏò¶ÓÁĞ½øĞĞ·¢ËÍ£¬¶ÓÁĞ×îºÃÔÚconsumer¶Ë½øĞĞÉùÃ÷
-		// ÕâÀïµÄ¶ÓÁĞÊÇÔÚspringÀïÅäÖÃµÄ
+		// ç›´æ¥å‘é˜Ÿåˆ—è¿›è¡Œå‘é€ï¼Œé˜Ÿåˆ—æœ€å¥½åœ¨consumerç«¯è¿›è¡Œå£°æ˜
+		// è¿™é‡Œçš„é˜Ÿåˆ—æ˜¯åœ¨springé‡Œé…ç½®çš„
 		channel.basicPublish("", "queue", null, mesg.getBytes("utf-8"));
 		channel.close();
 		conn.close();
