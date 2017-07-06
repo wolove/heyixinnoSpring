@@ -1,13 +1,10 @@
 package hyx.config;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.UUID;
-import java.util.concurrent.TimeoutException;
-
+import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.ConnectionFactory;
 import hyx.util.rabbitmq.MyMessageListener;
 import hyx.util.rabbitmq.QueueHolder;
-
 import org.springframework.amqp.core.AcknowledgeMode;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageListener;
@@ -19,9 +16,10 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.rabbitmq.client.Channel;
-import com.rabbitmq.client.Connection;
-import com.rabbitmq.client.ConnectionFactory;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.UUID;
+import java.util.concurrent.TimeoutException;
 
 /**
  * @author hyx
@@ -30,16 +28,6 @@ import com.rabbitmq.client.ConnectionFactory;
 public class RabbitmqConfig {
 
     private static final String exchangeName = "exchange";
-
-    private ConnectionFactory getConnectionFactory() {
-        ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("localhost");
-        factory.setUsername("guest");
-        factory.setPassword("guest");
-        factory.setVirtualHost("/");
-        initQueue(factory);
-        return factory;
-    }
 
     /**
      * @return
@@ -50,6 +38,16 @@ public class RabbitmqConfig {
         CachingConnectionFactory factory = new CachingConnectionFactory(getConnectionFactory());
         // CachingConnectionFactory factory = new
         // CachingConnectionFactory(getYzcConnectionFactory());
+        return factory;
+    }
+
+    private ConnectionFactory getConnectionFactory() {
+        ConnectionFactory factory = new ConnectionFactory();
+        factory.setHost("localhost");
+        factory.setUsername("guest");
+        factory.setPassword("guest");
+        factory.setVirtualHost("/");
+        initQueue(factory);
         return factory;
     }
 
@@ -84,6 +82,7 @@ public class RabbitmqConfig {
      * @throws IOException
      */
     private void declareExchange(Channel channel) throws IOException {
+        //第三个参数boolean表示是否持久化
         channel.exchangeDeclare(exchangeName, "topic");
     }
 
@@ -100,38 +99,9 @@ public class RabbitmqConfig {
         channel.queueBind(queueName, exchangeName, "routekey");
     }
 
-    /**
-     * @param listener
-     * @return
-     * @description listener-container,spring实现的消息驱动的 amqp
-     */
-    @Bean
-    @Autowired
-    public SimpleMessageListenerContainer container(MyMessageListener listener, CachingConnectionFactory factory,
-                                                    @Qualifier("anonymousListener") MessageListener AnonymousListener) {
-        SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
-        container.setConnectionFactory(factory);
-        container.setAcknowledgeMode(AcknowledgeMode.AUTO);
-        container.setConcurrentConsumers(50);
-        container.setMaxConcurrentConsumers(200);
-        // this queue will be destroyed when connection is closed
-        String[] queueNames = QueueHolder.getInstance().getQueuesAsArray();
-        container.addQueueNames(queueNames);
-        container.setMessageListener(AnonymousListener);
-        return container;
-    }
-
-    @Bean(name = "rabbitTemplate")
-    @Autowired
-    public RabbitTemplate getRabbitTemplate(CachingConnectionFactory factory) {
-        RabbitTemplate template = new RabbitTemplate(factory);
-        return template;
-    }
-
-    @Bean("anonymousListener")
+    @Bean(name = "anonymousListener")
     public MessageListener getMessageListener() {
-        MessageListener ml = new MessageListener() {
-
+        return new MessageListener() {
             @Override
             public void onMessage(Message msg) {
                 String s = "";
@@ -144,8 +114,36 @@ public class RabbitmqConfig {
             }
         };
 
-        return ml;
+
     }
+
+    /**
+     * @return
+     * @description listener-container,spring实现的消息驱动的 amqp
+     */
+    @Bean
+    @Autowired
+    public SimpleMessageListenerContainer container(CachingConnectionFactory factory,
+                                                    @Qualifier("anonymousListener") MessageListener anonymousListener) {
+        SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
+        container.setConnectionFactory(factory);
+        container.setAcknowledgeMode(AcknowledgeMode.AUTO);
+        container.setConcurrentConsumers(50);
+        container.setMaxConcurrentConsumers(200);
+        // this queue will be destroyed when connection is closed
+        String[] queueNames = QueueHolder.getInstance().getQueuesAsArray();
+        container.addQueueNames(queueNames);
+        container.setMessageListener(anonymousListener);
+        return container;
+    }
+
+    @Bean(name = "rabbitTemplate")
+    @Autowired
+    public RabbitTemplate getRabbitTemplate(CachingConnectionFactory factory) {
+        RabbitTemplate template = new RabbitTemplate(factory);
+        return template;
+    }
+
 
     /**
      * test connect to remote rabbitmq server

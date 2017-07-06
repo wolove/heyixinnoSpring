@@ -1,4 +1,4 @@
-package hyx.repository.entity;
+package hyx.repository.mysql.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

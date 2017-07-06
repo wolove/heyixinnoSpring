@@ -3,7 +3,6 @@ package hyx.config;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -21,7 +20,7 @@ import java.util.Properties;
  */
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackages = "hyx.repository",entityManagerFactoryRef = "entityManager",transactionManagerRef = "transactionManager")
+@EnableJpaRepositories(basePackages = "hyx.repository.mysql",entityManagerFactoryRef = "entityManager",transactionManagerRef = "transactionsManager")
 @PropertySource(value = "classpath:dbconfig.properties")
 public class MySqlConfig {
 
@@ -39,7 +38,7 @@ public class MySqlConfig {
     private String hibernateShowSql;
     @Value("${hibernate.hbm2ddl.auto}")
     private String hibernateHbm2ddlAuto;
-    @Value("${entitymanager.packages.to.scan}")
+    @Value("${mysql.entitymanager.packages.to.scan}")
     private String entityManagerPackageToScan;
 
     private static final String PROPERTY_NAME_HIBERNATE_DIALECT = "hibernate.dialect";
@@ -74,7 +73,7 @@ public class MySqlConfig {
         return p;
     }
 
-    @Bean(name = "transactionManager")
+    @Bean(name = "transactionsManager")
     public JpaTransactionManager getJpaTransactionManager() throws PropertyVetoException {
         JpaTransactionManager manager = new JpaTransactionManager();
         manager.setEntityManagerFactory(getEntityManager().getObject());
