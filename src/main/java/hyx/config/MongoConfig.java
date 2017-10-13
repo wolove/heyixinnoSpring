@@ -47,7 +47,7 @@ public class MongoConfig {
     }
 
     /**
-     * 老老实实用mongoClient
+     * 老老实实用mongoClientk
      */
     @Bean
     public MongoClient mongoClient() {
@@ -60,7 +60,7 @@ public class MongoConfig {
     }
 
     /**
-     * 如果是直接new MongoClient ，默认是连接localhost 的27017端口
+     * 如果这里的传参是直接new 出来的MongoClient ，默认是连接localhost 的27017端口
      *
      * @return
      */
