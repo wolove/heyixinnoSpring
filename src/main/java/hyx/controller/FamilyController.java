@@ -1,7 +1,7 @@
 package hyx.controller;
 
-import hyx.repository.jpa.NameRepository;
-import hyx.repository.jpa.entity.NameEntity;
+import hyx.repository.mybatis.entity.Name;
+import hyx.repository.mybatis.mapper.NameMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,18 +15,21 @@ import org.springframework.web.bind.annotation.RestController;
 public class FamilyController {
 
     @Autowired
-    private NameRepository nameRepository;
+    private NameMapper nameRepository;
 
     @RequestMapping(value = "/name/{name_id}", method = RequestMethod.GET)
-    public Object getName(@PathVariable(value = "name_id") Long nameId) {
-        return nameRepository.findOne(nameId);
+    public Name getName(@PathVariable(value = "name_id") Long nameId) {
+        return nameRepository.selectByPrimaryKey(nameId);
     }
 
     @RequestMapping(value = "/name", method = RequestMethod.POST)
-    public Object saveName() {
-        NameEntity ne = new NameEntity();
-        ne.setFamilyName("he");
-        ne.setName("xxxxxxxxxxxxxx");
-        return nameRepository.save(ne);
+    public Name create() {
+        Name name = new Name();
+        name.setId(102L);
+        name.setFamilyName("zym");
+        name.setName("hyx");
+        int what = nameRepository.insert(name);
+
+        return name;
     }
 }

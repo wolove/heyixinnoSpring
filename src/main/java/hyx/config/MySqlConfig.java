@@ -1,22 +1,29 @@
 package hyx.config;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
+import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.mapper.MapperScannerConfigurer;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 import java.beans.PropertyVetoException;
+import java.io.IOException;
 
 /**
  * @author hyx(610302) on 2017/6/24 0024.
  */
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackages = "hyx.repository.jpa",entityManagerFactoryRef = "entityManager",transactionManagerRef = "transactionsManager")
+//@EnableJpaRepositories(basePackages = "hyx.repository.jpa",entityManagerFactoryRef = "entityManager",transactionManagerRef = "transactionsManager")
 @PropertySource(value = "classpath:dbconfig.properties")
 public class MySqlConfig {
 
@@ -41,7 +48,7 @@ public class MySqlConfig {
     private static final String PROPERTY_NAME_HIBERNATE_SHOW_SQL = "hibernate.show_sql";
     private static final String PROPERTY_NAME_HBM2DDL_AUTO = "hibernate.hbm2ddl.auto";
 
-    @Bean
+    @Bean(name = "dataSource")
     public DataSource getDataSource() throws PropertyVetoException {
         ComboPooledDataSource ds = new ComboPooledDataSource();
         ds.setDriverClass(dbDriver);
@@ -49,6 +56,29 @@ public class MySqlConfig {
         ds.setJdbcUrl(connectUrl);
         ds.setUser(userName);
         return ds;
+    }
+
+    @Bean(name = "sqlSessionFactoryBean")
+    public SqlSessionFactoryBean getSqlSessionFactoryBean(@Qualifier("dataSource") DataSource ds) throws PropertyVetoException, IOException {
+        SqlSessionFactoryBean sfb = new SqlSessionFactoryBean();
+        sfb.setDataSource(ds );
+        sfb.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:mapper/*.xml"));
+        return sfb;
+    }
+
+    @Bean
+    public DataSourceTransactionManager getTransactionManager(@Qualifier("dataSource") DataSource ds) throws PropertyVetoException {
+        DataSourceTransactionManager manager = new  DataSourceTransactionManager();
+        manager.setDataSource(ds);
+        return manager;
+    }
+
+    @Bean
+    public MapperScannerConfigurer getMapperScannerConfigurer() {
+        MapperScannerConfigurer msc = new MapperScannerConfigurer();
+        msc.setSqlSessionFactoryBeanName("sqlSessionFactoryBean");
+        msc.setBasePackage("hyx.repository.mybatis.mapper");
+        return msc;
     }
 
 //    @Bean(name = "entityManager")
@@ -76,5 +106,8 @@ public class MySqlConfig {
 //        return manager;
 //    }
 
-
+    @Bean
+    public static PropertySourcesPlaceholderConfigurer getPropertyPlaceholderConfigurer() {
+        return new PropertySourcesPlaceholderConfigurer();
+    }
 }
