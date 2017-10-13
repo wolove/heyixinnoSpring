@@ -1,6 +1,6 @@
-package hyx.repository.mysql;
+package hyx.repository.jpa;
 
-import hyx.repository.mysql.entity.NameEntity;
+import hyx.repository.jpa.entity.NameEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

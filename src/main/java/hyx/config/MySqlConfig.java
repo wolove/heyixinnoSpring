@@ -1,26 +1,22 @@
 package hyx.config;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
-import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.orm.jpa.JpaTransactionManager;
-import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 import java.beans.PropertyVetoException;
-import java.util.Properties;
 
 /**
  * @author hyx(610302) on 2017/6/24 0024.
  */
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackages = "hyx.repository.mysql",entityManagerFactoryRef = "entityManager",transactionManagerRef = "transactionsManager")
+@EnableJpaRepositories(basePackages = "hyx.repository.jpa",entityManagerFactoryRef = "entityManager",transactionManagerRef = "transactionsManager")
 @PropertySource(value = "classpath:dbconfig.properties")
 public class MySqlConfig {
 
@@ -55,30 +51,30 @@ public class MySqlConfig {
         return ds;
     }
 
-    @Bean(name = "entityManager")
-    public LocalContainerEntityManagerFactoryBean getEntityManager() throws PropertyVetoException {
-        LocalContainerEntityManagerFactoryBean entityManager = new LocalContainerEntityManagerFactoryBean();
-        entityManager.setDataSource(getDataSource());
-        entityManager.setPackagesToScan(entityManagerPackageToScan);
-        entityManager.setPersistenceProviderClass(HibernatePersistenceProvider.class);
-        entityManager.setJpaProperties(getHiberhateProperties());
-        return entityManager;
-    }
-
-    private Properties getHiberhateProperties() {
-        Properties p = new Properties();
-        p.put(PROPERTY_NAME_HIBERNATE_DIALECT, hibernateDialect);
-        p.put(PROPERTY_NAME_HIBERNATE_SHOW_SQL, hibernateShowSql);
-        p.put(PROPERTY_NAME_HBM2DDL_AUTO, hibernateHbm2ddlAuto);
-        return p;
-    }
-
-    @Bean(name = "transactionsManager")
-    public JpaTransactionManager getJpaTransactionManager() throws PropertyVetoException {
-        JpaTransactionManager manager = new JpaTransactionManager();
-        manager.setEntityManagerFactory(getEntityManager().getObject());
-        return manager;
-    }
+//    @Bean(name = "entityManager")
+//    public LocalContainerEntityManagerFactoryBean getEntityManager() throws PropertyVetoException {
+//        LocalContainerEntityManagerFactoryBean entityManager = new LocalContainerEntityManagerFactoryBean();
+//        entityManager.setDataSource(getDataSource());
+//        entityManager.setPackagesToScan(entityManagerPackageToScan);
+//        entityManager.setPersistenceProviderClass(HibernatePersistenceProvider.class);
+//        entityManager.setJpaProperties(getHiberhateProperties());
+//        return entityManager;
+//    }
+//
+//    private Properties getHiberhateProperties() {
+//        Properties p = new Properties();
+//        p.put(PROPERTY_NAME_HIBERNATE_DIALECT, hibernateDialect);
+//        p.put(PROPERTY_NAME_HIBERNATE_SHOW_SQL, hibernateShowSql);
+//        p.put(PROPERTY_NAME_HBM2DDL_AUTO, hibernateHbm2ddlAuto);
+//        return p;
+//    }
+//
+//    @Bean(name = "transactionsManager")
+//    public JpaTransactionManager getJpaTransactionManager() throws PropertyVetoException {
+//        JpaTransactionManager manager = new JpaTransactionManager();
+//        manager.setEntityManagerFactory(getEntityManager().getObject());
+//        return manager;
+//    }
 
 
 }

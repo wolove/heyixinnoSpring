@@ -1,7 +1,7 @@
 package hyx.controller;
 
-import hyx.repository.mysql.NameRepository;
-import hyx.repository.mysql.entity.NameEntity;
+import hyx.repository.jpa.NameRepository;
+import hyx.repository.jpa.entity.NameEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,11 +17,12 @@ public class FamilyController {
     @Autowired
     private NameRepository nameRepository;
 
-    @RequestMapping(value = "/name/{name_id}",method = RequestMethod.GET)
-    public Object getName(@PathVariable(value = "name_id")Long nameId) {
+    @RequestMapping(value = "/name/{name_id}", method = RequestMethod.GET)
+    public Object getName(@PathVariable(value = "name_id") Long nameId) {
         return nameRepository.findOne(nameId);
     }
-    @RequestMapping(value = "/name",method = RequestMethod.POST)
+
+    @RequestMapping(value = "/name", method = RequestMethod.POST)
     public Object saveName() {
         NameEntity ne = new NameEntity();
         ne.setFamilyName("he");
