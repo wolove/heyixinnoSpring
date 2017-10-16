@@ -14,22 +14,22 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class FamilyController {
 
-    @Autowired
-    private NameMapper nameRepository;
-
-    @RequestMapping(value = "/name/{name_id}", method = RequestMethod.GET)
-    public Name getName(@PathVariable(value = "name_id") Long nameId) {
-        return nameRepository.selectByPrimaryKey(nameId);
-    }
-
-    @RequestMapping(value = "/name", method = RequestMethod.POST)
-    public Name create() {
-        Name name = new Name();
-        name.setId(102L);
-        name.setFamilyName("zym");
-        name.setName("hyx");
-        int what = nameRepository.insert(name);
-
-        return name;
-    }
+//    @Autowired
+//    private NameMapper nameRepository;
+//
+//    @RequestMapping(value = "/name/{name_id}", method = RequestMethod.GET)
+//    public Name getName(@PathVariable(value = "name_id") Long nameId) {
+//        return nameRepository.selectByPrimaryKey(nameId);
+//    }
+//
+//    @RequestMapping(value = "/name", method = RequestMethod.POST)
+//    public Name create() {
+//        Name name = new Name();
+//        name.setId(102L);
+//        name.setFamilyName("zym");
+//        name.setName("hyx");
+//        int what = nameRepository.insert(name);
+//
+//        return name;
+//    }
 }
