@@ -1,7 +1,8 @@
 package hyx.config;
 
+import com.baomidou.mybatisplus.plugins.PaginationInterceptor;
+import com.baomidou.mybatisplus.spring.MybatisSqlSessionFactoryBean;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
-import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,7 +25,7 @@ import java.io.IOException;
 @EnableTransactionManagement
 @PropertySource(value = "classpath:dbconfig.properties")
 @Import({MapperScannerConfiguration.class})
-@MapperScan(sqlSessionFactoryRef = "mySqlSessionFactory",basePackages = {"hyx.repository.mybatis.mapper"})
+@MapperScan(sqlSessionFactoryRef = "mySqlSessionFactory", basePackages = {"hyx.repository.mybatis.mapper"})
 public class MySqlConfig {
 
     /**
@@ -54,9 +55,18 @@ public class MySqlConfig {
         return ds;
     }
 
+
+    /**
+     * 这里需要使用mp的sessionfactorybean
+     *
+     * @param ds
+     * @return
+     * @throws PropertyVetoException
+     * @throws IOException
+     */
     @Bean(name = "mySqlSessionFactory")
-    public SqlSessionFactoryBean getSqlSessionFactoryBean(@Qualifier("dataSource") DataSource ds) throws PropertyVetoException, IOException {
-        SqlSessionFactoryBean sfb = new SqlSessionFactoryBean();
+    public MybatisSqlSessionFactoryBean getSqlSessionFactoryBean(@Qualifier("dataSource") DataSource ds) throws PropertyVetoException, IOException {
+        MybatisSqlSessionFactoryBean sfb = new MybatisSqlSessionFactoryBean();
         sfb.setDataSource(ds);
         sfb.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:mapper/*.xml"));
         return sfb;
@@ -69,8 +79,8 @@ public class MySqlConfig {
         return manager;
     }
 
-//    @Bean
-//    public PaginationInterceptor getPaginationInterceptor() {
-//        return new PaginationInterceptor();
-//    }
+    @Bean
+    public PaginationInterceptor getPaginationInterceptor() {
+        return new PaginationInterceptor();
+    }
 }

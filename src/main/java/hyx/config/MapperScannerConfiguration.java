@@ -12,7 +12,6 @@ import javax.annotation.PostConstruct;
  */
 public class MapperScannerConfiguration {
 
-
     public MapperScannerConfigurer getMapperScannerConfigurer() {
         MapperScannerConfigurer msc = new MapperScannerConfigurer();
         msc.setSqlSessionFactoryBeanName("mySqlSessionFactory");
