@@ -2,6 +2,7 @@ package hyx.config;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -23,6 +24,7 @@ import java.io.IOException;
 @EnableTransactionManagement
 @PropertySource(value = "classpath:dbconfig.properties")
 @Import({MapperScannerConfiguration.class})
+@MapperScan(sqlSessionFactoryRef = "mySqlSessionFactory",basePackages = {"hyx.repository.mybatis.mapper"})
 public class MySqlConfig {
 
     /**
@@ -67,4 +69,8 @@ public class MySqlConfig {
         return manager;
     }
 
+//    @Bean
+//    public PaginationInterceptor getPaginationInterceptor() {
+//        return new PaginationInterceptor();
+//    }
 }
