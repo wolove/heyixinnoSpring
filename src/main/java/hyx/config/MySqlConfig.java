@@ -21,7 +21,7 @@ import java.util.Properties;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = "hyx.repository.mysql",entityManagerFactoryRef = "entityManager",transactionManagerRef = "transactionsManager")
-@PropertySource(value = "classpath:dbconfig.properties")
+//@PropertySource(value = "classpath:dbconfig.properties")
 public class MySqlConfig {
 
     @Value("${db.driver}")

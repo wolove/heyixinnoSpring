@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * @author hyx(610302) on 2017/6/24 0024.
  */
-@RestController
+//@RestController
 public class FamilyController {
 
     @Autowired

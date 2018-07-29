@@ -27,7 +27,7 @@ import java.util.List;
 @EnableWebMvc
 @EnableAspectJAutoProxy
 @ComponentScan(basePackages = { "hyx.controller", "hyx.aop" ,"hyx.util"})
-@Import(value = { RabbitmqConfig.class,MySqlConfig.class,MongoConfig.class})
+//@Import(value = { RabbitmqConfig.class,MySqlConfig.class,MongoConfig.class})
 public class SpringConfig extends WebMvcConfigurerAdapter {
 
 	private static final boolean jackson2Present = ClassUtils.isPresent("com.fasterxml.jackson.databind.ObjectMapper", SpringConfig.class.getClassLoader())

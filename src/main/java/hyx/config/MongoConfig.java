@@ -19,7 +19,6 @@ import java.util.List;
 /**
  * @author hyx(610302) on 2017/7/5 0005.
  */
-@Configuration
 //@EnableJpaRepositories(basePackages = "hyx.repository.mongo", entityManagerFactoryRef = "")
 @PropertySource(value = "classpath:mongoconfig.properties")
 public class MongoConfig {

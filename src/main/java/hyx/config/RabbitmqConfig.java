@@ -24,7 +24,7 @@ import java.util.concurrent.TimeoutException;
 /**
  * @author hyx
  */
-@Configuration
+//@Configuration
 public class RabbitmqConfig {
 
     private static final String exchangeName = "exchange";

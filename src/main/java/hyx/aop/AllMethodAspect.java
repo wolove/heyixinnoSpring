@@ -26,7 +26,7 @@ public class AllMethodAspect {
 	 * args里的参数名字与后面的advice方法里的参数名字要严格统一，否则会报错，但是不要求和被adviced方法的参数名一致
 	 */
 	
-	@Pointcut("execution(* controller..*.*(..))")
+	@Pointcut("execution(* hyx.controller..*.*(..))")
 	private void commonMethod(){
 		
 	}

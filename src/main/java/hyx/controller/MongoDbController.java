@@ -22,7 +22,7 @@ import static org.springframework.data.mongodb.core.query.Query.query;
  *
  * @author hyx(610302) on 2017/7/6 0006.
  */
-@RestController
+//@RestController
 @RequestMapping("/mongo")
 public class MongoDbController {
 
