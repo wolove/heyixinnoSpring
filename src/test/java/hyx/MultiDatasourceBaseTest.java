@@ -15,9 +15,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author hyx 
- * Ò»¸ö¹ıÈ¥´îµÄ¿ÉÒÔ²âÊÔ¶àÊı¾İÔ´µÄUT»ù´¡¿ò¼ÜÀà
- *@Ê¹ÓÃ·½·¨ ²âÊÔ·şÎñ¿ÉÒÔÖ±½Ó×¢Èëservice½øĞĞ²âÊÔ
- *¼¯³É²âÊÔÇë²ÎÕÕ  {@link BaseTest}
+ * ä¸€ä¸ªè¿‡å»æ­çš„å¯ä»¥æµ‹è¯•å¤šæ•°æ®æºçš„UTåŸºç¡€æ¡†æ¶ç±»
+ *@ä½¿ç”¨æ–¹æ³• æµ‹è¯•æœåŠ¡å¯ä»¥ç›´æ¥æ³¨å…¥serviceè¿›è¡Œæµ‹è¯•
+ *é›†æˆæµ‹è¯•è¯·å‚ç…§  {@link BaseTest}
  */
 
 @Transactional
@@ -30,7 +30,7 @@ public class MultiDatasourceBaseTest {
 	@Rollback
 //	@Test
 	public void test(){
-		//¸Ã·½·¨ÀïµÄËùÓĞ²Ù×÷ÔÚ²âÊÔÍê³Éºó¶¼»á»Ø¹ö
+		//è¯¥æ–¹æ³•é‡Œçš„æ‰€æœ‰æ“ä½œåœ¨æµ‹è¯•å®Œæˆåéƒ½ä¼šå›æ»š
 		
 	}
 }

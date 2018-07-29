@@ -27,7 +27,7 @@ public class BaseTest {
 	@Autowired
 	private WebApplicationContext appContext;
 
-	// 必须是static no-arg method,该方法只调用一次，由于是静态方法，所以内部不能出现动态变量，比如appContext
+	// before class 蹇呴』鏄痵tatic no-arg method,璇ユ柟娉曞彧璋冪敤涓�娆★紝鐢变簬鏄潤鎬佹柟娉曪紝鎵�浠ュ唴閮ㄤ笉鑳藉嚭鐜板姩鎬佸彉閲忥紝姣斿appContext
 	// @BeforeClass
 	@Before
 	public void setUp() {

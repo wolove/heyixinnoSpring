@@ -9,7 +9,7 @@ import org.springframework.util.StringUtils;
 
 /**
  * @author hyx
- * ÓÃÓÚ°ü×°Í¨ÓÃµÄÇëÇó
+ * ç”¨äºåŒ…è£…é€šç”¨çš„è¯·æ±‚
  */
 public class MockUtils {
 
